@@ -1,0 +1,33 @@
+# NFC Attendance System - Reader Agent Configuration
+
+# API Configuration
+api:
+  base_url: "http://localhost:8000/api/v1"
+  timeout_seconds: 10
+  retry_attempts: 3
+
+# Device Configuration
+device:
+  device_id: "GATE-MAIN-01"
+  # API key will be loaded from environment variable: DEVICE_API_KEY
+
+# Reader Configuration
+reader:
+  poll_interval_ms: 500  # How often to check for cards (milliseconds)
+  reconnect_delay_seconds: 5  # Delay before retrying connection
+
+# Offline Configuration
+offline:
+  database_path: "./offline_events.db"
+  sync_interval_seconds: 30  # How often to sync buffered events
+  max_events_per_sync: 50  # Maximum events to sync at once
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "./reader_agent.log"
+  max_file_size_mb: 10
+  backup_count: 3
+
+
+

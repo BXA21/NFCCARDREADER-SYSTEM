@@ -7,10 +7,16 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy.orm import declarative_base
 from app.config import settings
 
-# Convert postgresql:// to postgresql+asyncpg:// for async support
-DATABASE_URL = settings.DATABASE_URL.replace(
-    "postgresql://", "postgresql+asyncpg://"
-)
+# Convert database URL for async support
+# Handle Railway's postgres:// format and convert to postgresql+asyncpg://
+DATABASE_URL = settings.DATABASE_URL
+
+# Railway uses postgres:// but SQLAlchemy needs postgresql://
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+asyncpg://", 1)
+elif DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
+# SQLite already uses aiosqlite in the URL
 
 # Create async engine
 # SQLite doesn't support pool_size/max_overflow, only PostgreSQL does

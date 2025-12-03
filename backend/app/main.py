@@ -27,11 +27,18 @@ async def lifespan(app: FastAPI):
         Device, AuditLog
     )
     
-    # Create tables (in production, use Alembic migrations)
+    # Create tables on startup (for both dev and production)
     async with engine.begin() as conn:
-        if settings.DEBUG:
-            await conn.run_sync(Base.metadata.create_all)
-            print("Database tables created successfully")
+        await conn.run_sync(Base.metadata.create_all)
+        print("Database tables created/verified successfully")
+    
+    # Initialize admin user if not exists
+    try:
+        from app.utils.init_db import initialize_database
+        await initialize_database()
+        print("Database initialized with default data")
+    except Exception as e:
+        print(f"Note: Could not initialize database defaults: {e}")
     
     yield
     

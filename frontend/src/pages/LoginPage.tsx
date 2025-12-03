@@ -113,7 +113,7 @@ export const LoginPage = () => {
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-800 font-medium mb-1">Default Admin Credentials:</p>
             <p className="text-sm text-blue-700">Username: <code className="bg-blue-100 px-1 rounded">admin</code></p>
-            <p className="text-sm text-blue-700">Password: <code className="bg-blue-100 px-1 rounded">admin123</code></p>
+            <p className="text-sm text-blue-700">Password: <code className="bg-blue-100 px-1 rounded">Admin@123</code></p>
           </div>
         </div>
 
